@@ -37,7 +37,6 @@ function AdminLogin() {
             fullWidth
           />
           <TextField
-            autoFocus
             margin="dense"
             id="name"
             label="password"
