@@ -1,14 +1,13 @@
 import React,{Component} from 'react';
-import Header from "../layout/Header";
+import SearchAppBar from "../components/SearchAppBar";
 import '../App.css';
 class LandingPage extends Component {
   render(){
     return (
       <div>
-      <Header />
-      <h1>
-      this is Landing
-      </h1>
+      <SearchAppBar />
+      <div className="back-ground">
+      </div>
       </div>
     );
   }

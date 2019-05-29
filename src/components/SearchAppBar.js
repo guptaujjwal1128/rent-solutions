@@ -9,8 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import "../App.css";
-import UserLogIn from "./UserLogIn";
-import AdminLogIn from "./AdminLogIn";
+import UserLogin from "./UserLogin.js";
+import AdminLogin from "./AdminLogin.js";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -96,8 +96,8 @@ function SearchAppBar() {
               }}
             />
           </div>
-          <UserLogIn />
-          <AdminLogIn />
+          <UserLogin />
+          <AdminLogin />
         </Toolbar>
       </AppBar>
     </div>
