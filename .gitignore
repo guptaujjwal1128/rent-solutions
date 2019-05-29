@@ -8,7 +8,7 @@
 # testing
 /coverage
 
-src/components/Config.js
+/src/components/Config.js
 
 # production
 /build
