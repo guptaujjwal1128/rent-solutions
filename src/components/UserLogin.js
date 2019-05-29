@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,57 +6,132 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Snackbar from '@material-ui/core/Snackbar';
+import MySnackbarContentWrapper from './snackBar';
 import '../App.css';
 
-function UserLogin() {
-  const [open, setOpen] = React.useState(false);
+  class UserLogin extends Component {
+    constructor(props){
+      super(props);
+      this.handleClickOpen = this.handleClickOpen.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleClose = this.handleClose.bind(this);
+      this.closeMessage = this.closeMessage.bind(this);
+      this.openMessage = this.openMessage.bind(this);
+      this.state={
+        errorStatus:false,
+        dialogstatus:false,
+        email:"",
+        password:""
+      }
+    }
 
-  function handleClickOpen() {
-    setOpen(true);
-  }
+    handleClickOpen(){
+      this.setState({
+        dialogstatus:true
+      });
+    }
 
-  function handleClose() {
-    setOpen(false);
-  }
+    closeMessage(){
+      this.setState({
+        errorStatus:false
+      });
+    }
 
-  return (
+    openMessage(){
+      this.setState({
+        errorStatus:true
+      });
+    }
+
+    handleClose(){
+      this.setState({
+        dialogstatus:false,
+        errorStatus:false
+      });
+    }
+
+    handleChange(event){
+      this.setState({
+        [event.target.name]: event.target.value,
+      });
+    }
+
+    handleSubmit(event){
+      console.log(this.state.email)
+      console.log(this.state.password)
+      if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){
+        this.closeMessage();
+        this.handleClose();
+      }
+      else{
+        this.openMessage();
+      }
+    }
+
+    render(){
+    return (
     <div>
       <div className="button-header">
-      <Button variant="outlined" className="button-header" onClick={handleClickOpen}>
+      <Button variant="outlined" className="button-header" onClick={this.handleClickOpen}>
         User Login
       </Button>
       </div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={this.state.errorStatus}
+      >
+        <MySnackbarContentWrapper
+          onClose={this.closeMessage}
+          variant="error"
+          message="enter a valid email address"
+        />
+      </Snackbar>
+      <Dialog open={this.state.dialogstatus} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">USER LOGIN</DialogTitle>
         <DialogContent>
+        <form>
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            name="email"
             label="Email Address"
             type="email"
             fullWidth
+            onChange={this.handleChange}
           />
           <TextField
-            autoFocus
             margin="dense"
-            id="name"
+            name="password"
             label="password"
             type="password"
             fullWidth
+            onChange={this.handleChange}
           />
+          </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button type="submit" onClick={this.handleSubmit} color="primary">
             Login
-          </Button>
-          <Button onClick={handleClose} color="primary">
+            </Button>
+          <Button onClick={this.handleClose} color="primary">
             Sign Up
           </Button>
+          <Button onClick={this.handleClose} color="primary">
+            Cancel
+          </Button>
         </DialogActions>
+        <p className="notice-dialog">
+        Note:If you are already a user,then Login, otherwise signup.
+        </p>
       </Dialog>
     </div>
   );
+  }
 }
 
 export default UserLogin;

@@ -29,3 +29,12 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.notice-dialog{
+  text-align:center;
+  font-size: 16px;
+  font-variant: inherit;
+  color:grey;
+  margin: 5px;
+  font-family: sans-serif;
+}
