@@ -27,11 +27,7 @@ class LandingPage extends Component {
   render(){
     return (
       <div>
-      <div className="button-header">
-      <Button variant="outlined" className="button-header" onClick={this.userLogout}>
-        Logout
-      </Button>
-      </div>
+      {this.userLogout()}
       {this.state.loggedOut ? <Redirect to="/" /> : null}
       </div>
     );
