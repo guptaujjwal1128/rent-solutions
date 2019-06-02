@@ -7,13 +7,14 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import '../App.css';
+import LogoutAction from './LogoutAction';
 
 class AdminAppBar extends React.Component {
   constructor(props){
     super(props);
     this.handleLogout = this.handleLogout.bind(this)
     this.state={
-      adminLoggedin:false
+      adminLoggedin:true
     }
   }
 
@@ -21,10 +22,6 @@ class AdminAppBar extends React.Component {
     this.setState({
       adminLoggedin:false
     })
-  }
-
-  componentWillMount(){
-
   }
 
   render(){
@@ -40,6 +37,7 @@ class AdminAppBar extends React.Component {
             Logout
           </Button>
           </div>
+          {this.state.adminLoggedin ? null : <LogoutAction />}
         </Toolbar>
       </AppBar>
     </div>

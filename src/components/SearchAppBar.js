@@ -10,7 +10,7 @@ import "../App.css";
 import UserLogin from "./UserLogin.js";
 import AdminLogin from "./AdminLogin.js";
 import LogoutAction from "./LogoutAction";
-
+import {Redirect} from 'react-router-dom';
 
 class SearchAppBar extends React.Component{
   constructor(props){
@@ -28,7 +28,10 @@ class SearchAppBar extends React.Component{
           <Typography variant="h6">
             zimber
           </Typography>
-          {this.props.userIsLoggedIn ? <LogoutAction/> : <UserLogin userIsLoggedIn={this.props.userIsLoggedIn}/>}
+          {this.props.userIsLoggedIn ? <div>
+            <LogoutAction/>
+            <Redirect to="/user" />
+            </div> : <UserLogin userIsLoggedIn={this.props.userIsLoggedIn}/>}
           {this.props.userIsLoggedIn ? null : <AdminLogin />}
         </Toolbar>
       </AppBar>

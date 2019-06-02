@@ -10,21 +10,36 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import fire from '../components/Config';
 
 class Admin extends Component {
 constructor(props){
   super(props)
-  this.handleAddClick = this.handleAddClick.bind(this)
+  this.changeState = this.changeState.bind(this)
+  this.handleAdd = this.handleAdd.bind(this)
   this.state={
-    search:"",
-    start:0,
-    end:0
+    location:"",
+    price:0,
+    discription:""
   }
 }
-  handleAddClick(event){
+  changeState(event){
     this.setState({
       [event.target.name]: event.target.value,
     });
+  }
+
+  handleAdd(){
+    fire.database().ref('users/').push({
+      location:this.state.location,
+      price:this.state.price,
+      discription:this.state.discription
+    });
+    this.setState({
+      location:"",
+      price:0,
+      discription:""
+    })
   }
 
   render(){
@@ -41,7 +56,39 @@ constructor(props){
           <Typography >You can add a house here</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-
+          <TextField
+            autoFocus
+            margin="5px"
+            name="location"
+            label="location"
+            type="text"
+            fullWidth
+            onChange={this.changeState}
+            value={this.state.location}
+          /><TextField
+            autoFocus
+            margin="5px"
+            name="price"
+            label="price"
+            type="number"
+            fullWidth
+            onChange={this.changeState}
+            value={this.state.price}
+          /><TextField
+            autoFocus
+            margin="5px"
+            name="discription"
+            label="discription"
+            type="text"
+            fullWidth
+            onChange={this.changeState}
+            value={this.state.discription}
+          />
+          <div className="button-header">
+          <Button variant="outlined" className="button-header" onClick={this.handleAdd}>
+            Add
+          </Button>
+          </div>
           </ExpansionPanelDetails>
           </ExpansionPanel>
        </div>

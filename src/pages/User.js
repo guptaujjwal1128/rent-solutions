@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import fire from '../components/Config';
 
 class User extends Component {
   render(){
@@ -21,7 +22,6 @@ class User extends Component {
               onChange={this.handleAddClick}
               style={{ margin: 20 }}
               placeholder="enter your loaction"
-              fullwidth
               margin="normal"
               InputLabelProps={{
                 shrink: true,
@@ -73,6 +73,13 @@ class User extends Component {
           </Grid>
         ))}
       </Grid>
+      {
+        fire.database().ref('users/').on('value',(snapshot)=>{
+        Object.values(snapshot.val()).map((item, i) => (
+            <span key={i}>{item[i]}</span>
+        ))
+        })
+      }
       </div>
     );
   }
