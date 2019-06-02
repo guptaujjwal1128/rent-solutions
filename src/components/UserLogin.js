@@ -9,13 +9,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Snackbar from '@material-ui/core/Snackbar';
 import MySnackbarContentWrapper from './snackBar';
 import '../App.css';
+import fire from './Config.js';
 
   class UserLogin extends Component {
     constructor(props){
       super(props);
       this.handleClickOpen = this.handleClickOpen.bind(this);
       this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSignin = this.handleSignin.bind(this);
+      this.handleSignup = this.handleSignup.bind(this);
       this.handleClose = this.handleClose.bind(this);
       this.closeMessage = this.closeMessage.bind(this);
       this.openMessage = this.openMessage.bind(this);
@@ -23,7 +25,10 @@ import '../App.css';
         errorStatus:false,
         dialogstatus:false,
         email:"",
-        password:""
+        password:"",
+        errorMessage:"",
+        messageVariant:"error",
+        loggedIn:false
       }
     }
 
@@ -58,19 +63,38 @@ import '../App.css';
       });
     }
 
-    handleSubmit(event){
-      console.log(this.state.email)
-      console.log(this.state.password)
-      if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){
-        this.closeMessage();
-        this.handleClose();
-      }
-      else{
-        this.openMessage();
-      }
+    handleSignin(event){
+        fire.auth().signInWithEmailAndPassword(this.state.email,this.state.password).catch((error)=>{
+          if(error){
+          this.setState({
+            errorMessage:error.message
+          })
+          this.openMessage();
+        }
+        else{
+          this.closeMessage();
+          this.handleClose();
+        }
+      });
+    }
+
+    handleSignup(event){
+        fire.auth().createUserWithEmailAndPassword(this.state.email,this.state.password).catch((error)=>{
+          if(error){
+          this.setState({
+            errorMessage:error.message
+          })
+          this.openMessage();
+        }
+        else{
+          this.closeMessage();
+          this.handleClose();
+        }
+      });
     }
 
     render(){
+      var{loggedIn} = this.props;
     return (
     <div>
       <div className="button-header">
@@ -87,8 +111,8 @@ import '../App.css';
       >
         <MySnackbarContentWrapper
           onClose={this.closeMessage}
-          variant="error"
-          message="enter a valid email address"
+          variant={this.state.messageVariant}
+          message={this.state.errorMessage}
         />
       </Snackbar>
       <Dialog open={this.state.dialogstatus} aria-labelledby="form-dialog-title">
@@ -115,10 +139,10 @@ import '../App.css';
           </form>
         </DialogContent>
         <DialogActions>
-          <Button type="submit" onClick={this.handleSubmit} color="primary">
+          <Button type="submit" onClick={this.handleSignin} color="primary">
             Login
             </Button>
-          <Button onClick={this.handleClose} color="primary">
+          <Button onClick={this.handleSignup} color="primary">
             Sign Up
           </Button>
           <Button onClick={this.handleClose} color="primary">

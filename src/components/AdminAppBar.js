@@ -6,18 +6,25 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import "../App.css";
-import UserLogin from "./UserLogin.js";
-import AdminLogin from "./AdminLogin.js";
-import LogoutAction from "./LogoutAction";
+import '../App.css';
 
-
-class SearchAppBar extends React.Component{
+class AdminAppBar extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this)
     this.state={
       adminLoggedin:false
     }
+  }
+
+  handleLogout(){
+    this.setState({
+      adminLoggedin:false
+    })
+  }
+
+  componentWillMount(){
+
   }
 
   render(){
@@ -26,14 +33,17 @@ class SearchAppBar extends React.Component{
       <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6">
-            zimber
+            Zimber
           </Typography>
-          {this.props.userIsLoggedIn ? <LogoutAction/> : <UserLogin userIsLoggedIn={this.props.userIsLoggedIn}/>}
-          {this.props.userIsLoggedIn ? null : <AdminLogin />}
+          <div className="button-header">
+          <Button variant="outlined" className="button-header" onClick={this.handleLogout}>
+            Logout
+          </Button>
+          </div>
         </Toolbar>
       </AppBar>
     </div>
-    );
-  }
+  )}
 }
-export default SearchAppBar;
+
+export default AdminAppBar;
