@@ -5,19 +5,19 @@ import Button from '@material-ui/core/Button';
 import fire from './Config.js';
 import {Redirect} from 'react-router-dom';
 
-class LandingPage extends Component {
+class UserLogout extends Component {
   constructor(props){
     super(props)
     this.userLogout = this.userLogout.bind(this);
     this.state={
-      loggedOut:false
+      userLoggedOut:false
     }
   }
 
   userLogout(){
     fire.auth().signOut().then(()=>{
       // Sign-out successful.
-      console.log('logout')
+      console.log('user logout')
       this.setState({
         loggedOut:true
       })
@@ -28,10 +28,10 @@ class LandingPage extends Component {
     return (
       <div>
       {this.userLogout()}
-      {this.state.loggedOut ? <Redirect to="/" /> : null}
+      {this.state.loggedOut ? <Redirect to="/logout" /> : null}
       </div>
     );
   }
 }
 
-export default LandingPage;
+export default UserLogout;

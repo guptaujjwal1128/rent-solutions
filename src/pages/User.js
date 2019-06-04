@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import AdminAppBar from '../components/AdminAppBar';
+import UserHeader from '../components/UserHeader';
 import '../App.css';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -89,8 +89,7 @@ class User extends Component {
   render(){
     return (
       <div>
-      {console.log(this.state.val)}
-      <AdminAppBar />
+      <UserHeader />
       <Grid container justify="center" spacing={2}>
           <Grid item xs>
             <Paper>

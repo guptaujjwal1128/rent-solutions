@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import '../App.css';
-import AdminAppBar from '../components/AdminAppBar'
+import AdminHeader from '../components/AdminHeader.js'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -30,6 +30,7 @@ constructor(props){
   }
 
   handleAdd(){
+    if(this.state.location!==""&&this.state.price!==0&&this.state.description!==""){
     fire.database().ref('users/').push({
       location:this.state.location,
       price:this.state.price,
@@ -41,11 +42,15 @@ constructor(props){
       discription:""
     })
   }
+  else{
+    alert('mentioned fields are empty')
+  }
+  }
 
   render(){
     return (
       <div className="back-ground">
-      <AdminAppBar />
+      <AdminHeader />
          <div style={{margin:'10px'}}>
          <ExpansionPanel>
           <ExpansionPanelSummary
@@ -53,12 +58,11 @@ constructor(props){
               aria-controls="panel1a-content"
               id="panel1a-header"
           >
-          <Typography >You can add a house here</Typography>
+          <Typography variant='h3'>ADD A HOUSE</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
           <TextField
             autoFocus
-            margin="5px"
             name="location"
             label="location"
             type="text"
@@ -67,7 +71,6 @@ constructor(props){
             value={this.state.location}
           /><TextField
             autoFocus
-            margin="5px"
             name="price"
             label="price"
             type="number"
@@ -76,7 +79,6 @@ constructor(props){
             value={this.state.price}
           /><TextField
             autoFocus
-            margin="5px"
             name="discription"
             label="discription"
             type="text"
@@ -90,6 +92,7 @@ constructor(props){
           </Button>
           </div>
           </ExpansionPanelDetails>
+          <Typography >You can add a house here</Typography>
           </ExpansionPanel>
        </div>
        </div>

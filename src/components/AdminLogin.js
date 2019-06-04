@@ -28,7 +28,7 @@ import {Redirect} from 'react-router-dom';
         password:"",
         errorMessage:"",
         messageVariant:"error",
-        loggedIn:false
+        adminLoggedIn:false
       }
     }
 
@@ -68,8 +68,9 @@ import {Redirect} from 'react-router-dom';
         this.handleClose();
         this.closeMessage();
         this.setState({
-          loggedIn:true
+          adminLoggedIn:true
         })
+        {this.props.adminState(this.state.adminLoggedIn)}
       }
       else{
         this.setState({
@@ -82,7 +83,7 @@ import {Redirect} from 'react-router-dom';
     render(){
     return (
     <div>
-    {this.state.loggedIn ? <Redirect to="/admin" /> : null}
+    {this.state.adminLoggedIn ? <Redirect to="/admin" /> : null}
       <div className="button-header">
       <Button variant="outlined" className="button-header" onClick={this.handleClickOpen}>
         Admin Login
@@ -102,14 +103,14 @@ import {Redirect} from 'react-router-dom';
         />
       </Snackbar>
       <Dialog open={this.state.dialogstatus} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">USER LOGIN</DialogTitle>
+        <DialogTitle id="form-dialog-title">ADMIN LOGIN</DialogTitle>
         <DialogContent>
         <form>
           <TextField
             autoFocus
             margin="dense"
             name="email"
-            label="Email Address"
+            label="admin ID"
             type="email"
             fullWidth
             onChange={this.handleChange}

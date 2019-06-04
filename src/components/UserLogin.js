@@ -10,6 +10,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MySnackbarContentWrapper from './snackBar';
 import '../App.css';
 import fire from './Config.js';
+import {Redirect} from 'react-router-dom';
 
   class UserLogin extends Component {
     constructor(props){
@@ -28,7 +29,7 @@ import fire from './Config.js';
         password:"",
         errorMessage:"",
         messageVariant:"error",
-        loggedIn:false
+        userLoggedIn:false
       }
     }
 
@@ -94,9 +95,9 @@ import fire from './Config.js';
     }
 
     render(){
-      var{loggedIn} = this.props;
     return (
     <div>
+    {this.state.userLoggedIn ? <Redirect to="/user" /> : null}
       <div className="button-header">
       <Button variant="outlined" className="button-header" onClick={this.handleClickOpen}>
         User Login

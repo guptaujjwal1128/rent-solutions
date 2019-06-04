@@ -14,7 +14,7 @@ class App extends Component {
       <Route exact path="/" component={LandingPage} />
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/admin" component={Admin} />
-      <Route exact path="/user" component={User} />
+      <Route exact path="/user/:id" component={User} />
       <Route component={CustomPage} />
       </Switch>
       </BrowserRouter>
