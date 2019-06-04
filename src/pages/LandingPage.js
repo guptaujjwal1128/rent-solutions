@@ -1,14 +1,13 @@
 import React,{Component} from 'react';
-import Header from "../layout/Header";
+import Header from '../layout/Header';
 import '../App.css';
+import Body from '../layout/Body';
 class LandingPage extends Component {
   render(){
     return (
-      <div>
+      <div className="back-ground">
       <Header />
-      <h1>
-      this is Landing
-      </h1>
+      <Body />
       </div>
     );
   }

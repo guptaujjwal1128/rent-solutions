@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import SearchAppBar from '../components/SearchAppBar'
 import {Link} from "react-router-dom";
 class CustomPage extends Component {
   render(){

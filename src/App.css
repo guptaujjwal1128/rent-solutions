@@ -10,14 +10,27 @@
 }
 
 .button-header{
-  background-color: #4CAF50; /* Green */
+  background-color:white;
   border: none;
-  color: white;
   text-align: center;
-  font-size: 20px;
   margin:10px;
-  padding:5px;
   cursor: pointer;
-  border-radius:90%;
   font-family:'sans-serif';
+}
+
+.back-ground{
+  background-image: url('./media/background.jpg');
+  background-color: #cccccc; /* Used if the image is unavailable */
+  height:1000px; /* You must set a specified height */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.notice-dialog{
+  text-align:center;
+  font-size: 16px;
+  font-variant: inherit;
+  color:grey;
+  margin: 5px;
+  font-family: sans-serif;
 }
