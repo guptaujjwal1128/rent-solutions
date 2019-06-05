@@ -20,7 +20,10 @@ constructor(props){
   this.state={
     location:"",
     price:0,
-    discription:""
+    discription:"",
+    uploadValue:0,
+    image:null,
+    url:''
   }
 }
   changeState(event){
@@ -34,18 +37,52 @@ constructor(props){
     fire.database().ref('users/').push({
       location:this.state.location,
       price:this.state.price,
-      discription:this.state.discription
+      discription:this.state.discription,
+      url:this.state.url
     });
     this.setState({
       location:"",
       price:0,
-      discription:""
+      discription:"",
     })
+    alert('sucessfully added')
   }
   else{
     alert('mentioned fields are empty')
   }
   }
+
+  updateState(e){
+    this.setState({
+      image:e.target.files[0]
+    })
+  }
+
+  handleUpload(){
+    const image = this.state.image;
+    if(image!==null){
+    fire.storage().ref('images/'+image.name).put(image).on('state_changed',(snapshot)=>{
+      let progress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
+      this.setState({
+        uploadValue:progress
+      })
+    },(error)=>{
+      alert(error);
+    },()=>{
+      fire.storage().ref('images').child(this.state.image.name).getDownloadURL().then((url)=>{
+        this.setState({
+          url:url
+        })
+        this.handleAdd()
+      }).catch((error)=>{
+        alert(error.code)
+      })
+    })
+  }
+  else{
+    this.handleAdd()
+  }
+}
 
   render(){
     return (
@@ -66,18 +103,23 @@ constructor(props){
             name="location"
             label="location"
             type="text"
-            fullWidth
             onChange={this.changeState}
             value={this.state.location}
-          /><TextField
+          />
+          </ExpansionPanelDetails>
+          <ExpansionPanelDetails>
+          <TextField
             autoFocus
             name="price"
             label="price"
             type="number"
-            fullWidth
             onChange={this.changeState}
             value={this.state.price}
-          /><TextField
+          />
+          </ExpansionPanelDetails>
+          <ExpansionPanelDetails>
+          <TextField
+            multiline
             autoFocus
             name="discription"
             label="discription"
@@ -86,13 +128,18 @@ constructor(props){
             onChange={this.changeState}
             value={this.state.discription}
           />
-          <div className="button-header">
-          <Button variant="outlined" className="button-header" onClick={this.handleAdd}>
+          </ExpansionPanelDetails>
+          <ExpansionPanelDetails>
+          <ul>
+          <li className="admin-list"><input type="file" onChange={this.updateState.bind(this)}/></li>
+          <li className="admin-list"><progress value={this.state.uploadValue} max="100" /></li>
+          </ul>
+          </ExpansionPanelDetails>
+          <ExpansionPanelDetails>
+          <Button variant="contained" color="primary" onClick={this.handleUpload.bind(this)}>
             Add
           </Button>
-          </div>
           </ExpansionPanelDetails>
-          <Typography >You can add a house here</Typography>
           </ExpansionPanel>
        </div>
        </div>

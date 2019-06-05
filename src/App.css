@@ -18,10 +18,16 @@
   font-family:'sans-serif';
 }
 
+.admin-list{
+  display:inline;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .back-ground{
   background-image: url('./media/background.jpg');
   background-color: #cccccc; /* Used if the image is unavailable */
-  height:1000px; /* You must set a specified height */
+  height:930px; /* You must set a specified height */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 }
