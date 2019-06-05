@@ -5,13 +5,40 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import fire from '../components/Config';
+import alternate_image from '../media/alternate_image.png';
 
-class User extends Component {
+const styles = theme => ({
+  card: {
+    maxWidth: 345
+  },
+  media: {
+    height: 140
+  },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
+  },
+  gridList: {
+    width: 1200,
+    height: 700,
+  }
+})
+
+export default withStyles(styles)(class User extends Component {
   constructor(props){
     super(props)
     this.filterByPrice = this.filterByPrice.bind(this)
@@ -87,8 +114,9 @@ class User extends Component {
   }
 
   render(){
+    const classes = this.props.classes;
     return (
-      <div>
+      <div className="back-ground">
       <UserHeader />
       <Grid container justify="center" spacing={2}>
           <Grid item xs>
@@ -154,32 +182,28 @@ class User extends Component {
             </Grid>
             </Paper>
           </Grid>
-        ))}
       </Grid>
-      <div>
-      {
-        this.state.val.map((item,i) =>{
-        return (
-          <div key={i}>
-      <Card>
-      <CardContent>
-        <Typography component="h2" gutterBottom>
-          Location: {item.location}
-        </Typography>
-        <Typography variant="h5" component="h3">
-          Price: {item.price}
-        </Typography>
-        <Typography variant="body2" component="p">
-          {item.discription}
-        </Typography>
-      </CardContent>
-    </Card>
-    </div>
-    )
-      })}
+
+      <div className={classes.root}>
+        <GridList cellHeight={250} className={classes.gridList}>
+          <GridListTile key="Subheader" cols={2} rows={2} style={{ height: 'auto' }}>
+            </GridListTile>
+              {this.state.val.map(tile => (
+            <GridListTile key={tile.url}>
+              <img src={tile.url||alternate_image} alt='image coming soon' />
+              <GridListTileBar
+                title={<span style={{fontSize:'25px',color:'white'}}>{tile.location}</span>}
+                subtitle={<span style={{fontSize:'15px',color:'red'}}>
+                <span style={{fontSize:'20px',color:'green'}}>price:{tile.price}</span>
+                <br />
+                {tile.discription}
+                </span>}
+                />
+            </GridListTile>
+            ))}
+        </GridList>
       </div>
       </div>
     );
   }
-}
-export default User;
+})
