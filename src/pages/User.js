@@ -17,6 +17,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import Switch from '@material-ui/core/Switch';
 import fire from '../components/Config';
 import alternate_image from '../media/alternate_image.png';
 
@@ -41,7 +42,6 @@ const styles = theme => ({
 export default withStyles(styles)(class User extends Component {
   constructor(props){
     super(props)
-    this.filterByPrice = this.filterByPrice.bind(this)
     this.filterByLocation = this.filterByLocation.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handlePrice = this.handlePrice.bind(this)
@@ -89,30 +89,21 @@ export default withStyles(styles)(class User extends Component {
       })
   }
 
-  filterByPrice(){
-    if(this.state.end>0){
-      console.log(typeof(this.state.start))
-      console.log(this.state.end)
-    this.setState({
-      pricefilter:true,
-      val:this.state.val.filter((item)=>{
-        return(Number(item.price)<=this.state.end && Number(item.price)>=this.state.start);
+  handleSlider(){
+      if(this.state.pricefilter===false){
+        this.setState({
+          val:this.state.val.filter((item)=>{
+            return(Number(item.price)<=this.state.end && Number(item.price)>=this.state.start);
+            })
+          })
+          this.state.pricefilter = true;
+      }
+      else{
+        this.setState({
+          val:this.state.storedVal
         })
-      })
-    }
-    else{
-      this.setState({
-        pricefilter:false,
-        val:this.state.storedVal
-      })
-    }
-  }
-
-  removeFilterByPrice(){
-      this.setState({
-        pricefilter:false,
-        val:this.state.storedVal
-      })
+        this.state.pricefilter = false;
+      }
   }
 
   handlePrice(event){
@@ -194,18 +185,10 @@ export default withStyles(styles)(class User extends Component {
             />
             </Grid>
             <Grid item>
-            <div className="button-header">
-            <Button variant="outlined" className="button-header" onClick={this.filterByPrice}>
-              Apply
-            </Button>
-            </div>
-            </Grid>
-            <Grid item>
-            <div className="button-header">
-            <Button variant="outlined" className="button-header" onClick={this.removeFilterByPrice.bind(this)}>
-              Remove
-            </Button>
-            </div>
+            <Switch
+              onChange={this.handleSlider.bind(this)}
+              color="primary"
+              />
             </Grid>
             </Grid>
             </Paper>
