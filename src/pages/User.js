@@ -82,6 +82,13 @@ export default withStyles(styles)(class User extends Component {
     }
   }
 
+  removeFilterByLocation(){
+      this.setState({
+        locationfilter:false,
+        val:this.state.storedVal
+      })
+  }
+
   filterByPrice(){
     if(this.state.end>0){
       console.log(typeof(this.state.start))
@@ -99,6 +106,13 @@ export default withStyles(styles)(class User extends Component {
         val:this.state.storedVal
       })
     }
+  }
+
+  removeFilterByPrice(){
+      this.setState({
+        pricefilter:false,
+        val:this.state.storedVal
+      })
   }
 
   handlePrice(event){
@@ -142,6 +156,13 @@ export default withStyles(styles)(class User extends Component {
             </Button>
             </div>
             </Grid>
+            <Grid item>
+            <div className="button-header">
+            <Button variant="outlined" className="button-header" onClick={this.removeFilterByLocation.bind(this)}>
+              Remove
+            </Button>
+            </div>
+            </Grid>
             </Grid>
             </Paper>
           </Grid>
@@ -176,6 +197,13 @@ export default withStyles(styles)(class User extends Component {
             <div className="button-header">
             <Button variant="outlined" className="button-header" onClick={this.filterByPrice}>
               Apply
+            </Button>
+            </div>
+            </Grid>
+            <Grid item>
+            <div className="button-header">
+            <Button variant="outlined" className="button-header" onClick={this.removeFilterByPrice.bind(this)}>
+              Remove
             </Button>
             </div>
             </Grid>
