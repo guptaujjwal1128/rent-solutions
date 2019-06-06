@@ -26,7 +26,7 @@ class AdminHeader extends Component {
     return (
       <div>
       {this.state.loggedOut ? <AdminLogout /> : null}
-      <AppBar position="relative">
+      <AppBar position="relative" color='secondary'>
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="Menu">
             <MenuIcon />
